@@ -89,11 +89,11 @@ secure:
 
 # target: migrations - Create database migrations
 migrations:
-	alembic -c src/chatcleaner/adapters/db/alembic.ini revision --autogenerate
+	${PRE_RUN_API_COMMAND} migrations
 
 # target: migrate - Run database migrations
 migrate:
-	alembic -c src/chatcleaner/adapters/db/alembic.ini upgrade head
+	${PRE_RUN_API_COMMAND} migrate
 
 # target: run-server - Run the server
 server:
