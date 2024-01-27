@@ -1,0 +1,107 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "chat_cleaner"
+authors = [{name = "David Nevin", email = "dnevincodes@gmail.com"}]
+readme = "README.md"
+dynamic = ["version", "description"]
+requires-python = ">=3.10"
+dependencies = [
+    "dependency-injector >=4.41.0",
+    "marshmallow >=3.19.0",
+    "icontract >=2.6.2",
+    "python-ulid >=1.1.0",
+    "alembic ==1.9.3",
+    "SQLAlchemy ==1.4.46",
+    "fastapi >=0.95.0",
+    "uvicorn >=0.21.1",
+    "flask >=2.2.3",
+    "Flask-Bootstrap >=3.3.7.1",
+	"pyscopg2",
+]
+
+[tool.flit.module]
+name = "chat-cleaner"
+
+[projecy.urls]
+Home = "https://github.com/davidjnevin/hexagonal-chat-cleaner"
+
+[project.optional-dependencies]
+dev = [
+    "black",
+    "isort",
+    "autoflake",
+	"pytype; platform_system != 'Windows'",
+    "flake8",
+	"Flake8-pyproject",
+	"bandit",
+	"flake8-bugbear",
+	"flake8-cognitive-complexity",
+    "pre-commit",
+	"safety",
+    "pip-audit",
+    ]
+
+test = [
+    "pytest",
+    "pytest-cov",
+]
+
+
+[tool.isort]
+profile = "black"
+py_version = 39
+skip = [".gitignore", ".dockerignore"]
+extend_skip = [".md", ".json"]
+skip_glob = ["docs/*"]
+
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+include = '\.pyi?$'
+
+[tool.bandit]
+skips = ["B311"]
+
+[tool.pytest.ini_options]
+markers = [
+	"slow: marks tests as slow (deselect with '-m \"not slow\"')",
+    "integration: marks tests as integration relatively slow (deselect with '-m \"not integration\"')",
+]
+addopts = [
+    "--strict-markers",
+    "--strict-config",
+    "-ra",
+]
+testpaths = "tests"
+pythonpath = "src"
+
+[tool.coverage.run]
+branch = true
+
+[tool.coverage.report]
+# Regexes for lines to exclude from consideration
+exclude_also = [
+    # Don't complain about missing debug-only code:
+    "def __repr__",
+    "if self\\.debug",
+
+    # Don't complain if tests don't hit defensive assertion code:
+    "raise AssertionError",
+    "raise NotImplementedError",
+
+    # Don't complain if non-runnable code isn't run:
+    "if 0:",
+    "if __name__ == .__main__.:",
+
+    # Don't complain about abstract methods, they aren't run:
+    "@(abc\\.)?abstractmethod",
+    ]
+
+ignore_errors = true
+
+[tool.coverage.html]
+directory = "htmlcov"

@@ -10,4 +10,3 @@ The project is on going at the moment, and I'll share a link as soon as it's liv
 
 I'll be using FastAPI and PostgreSQL for additonal features.
 
-
