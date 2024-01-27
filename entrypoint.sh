@@ -91,7 +91,14 @@ case $1 in
 	"test-cov")
 		wait_other_containers ;\
 		TEST_RUN="TRUE" pytest -svvv --cov-report html --cov=src tests
-
+		;;
+	"migrations")
+		wait_other_containers ;\
+		alembic -c src/chatcleaner/adapters/db/alembic.ini revision --autogenerate
+		;;
+	"migrate")
+		wait_other_containers ;\
+		alembic -c src/chatcleaner/adapters/db/alembic.ini upgrade head
 		;;
 	"*")
 		exec "$@"
