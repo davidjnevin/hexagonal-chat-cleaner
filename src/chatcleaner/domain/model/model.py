@@ -16,8 +16,8 @@ class Chat:
         return self.chat == other.chat
 
 
-def chat_factory(**kwargs: str) -> Chat:
+def chat_factory(**kwargs: dict[str]) -> Chat:
     schema_ = ChatCreateDTO()
-    model = schema_.load(**kwargs)
+    model = Chat(**kwargs)
     schema_.dump(model)
     return model
