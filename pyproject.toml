@@ -42,7 +42,6 @@ dev = [
     "pre-commit",
 	"safety",
     "pip-audit",
-	"pytest-freezegun",
     ]
 
 test = [

@@ -13,4 +13,3 @@ safety
 pip-audit
 pytest
 pytest-cov
-pytest-freezegun
