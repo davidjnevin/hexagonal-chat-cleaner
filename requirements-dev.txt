@@ -1,0 +1,15 @@
+-r requirements.txt
+black
+isort
+autoflake
+pytype; platform_system != 'Windows'
+flake8
+Flake8-pyproject
+bandit
+flake8-bugbear
+flake8-cognitive-complexity
+pre-commit
+safety
+pip-audit
+pytest
+pytest-cov
