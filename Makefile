@@ -1,7 +1,7 @@
 DOCKER_COMPOSE=docker compose
 DOCKER_ENVIRONMENT=docker-compose.yml
 PRE_RUN_API_COMMAND=${DOCKER_COMPOSE} -f ${DOCKER_ENVIRONMENT} run --rm chat-cleaner-app
-PACKAGE_NAME=chat-cleaner
+PACKAGE_NAME=chatcleaner
 VENV_FOLDER=.venv
 LAUNCH_IN_VENV=source ${VENV_FOLDER}/bin/activate &&
 PYTHON_VERSION=python3.11
@@ -89,11 +89,11 @@ secure:
 
 # target: migrations - Create database migrations
 migrations:
-	alembic -c src/chat-cleaner/adapters/db/alembic.ini revision --autogenerate
+	alembic -c src/chatcleaner/adapters/db/alembic.ini revision --autogenerate
 
 # target: migrate - Run database migrations
 migrate:
-	alembic -c src/chat-cleaner/adapters/db/alembic.ini upgrade head
+	alembic -c src/chatcleaner/adapters/db/alembic.ini upgrade head
 
 # target: run-server - Run the server
 server:
