@@ -14,7 +14,10 @@ ENGINE = create_engine(db_uri)
 class Container(containers.DeclarativeContainer):
     wiring_config = containers.WiringConfiguration(
         modules=[
-            "cleaning.use_cases.clean",
+            "chatcleaner.adapters.use_cases.clean",
+        ],
+        packages=[
+            "chatcleaner.adapters.entrypoints.api",
         ],
     )
     DEFAULT_SESSION_FACTORY = lambda: sessionmaker(bind=ENGINE, autocommit=False)
