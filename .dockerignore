@@ -3,5 +3,6 @@ venv
 dockerfiles/Dockerfile
 docker-compose.yml
 .git
+.venv
 *.db
 docs/
