@@ -1,8 +1,15 @@
-import pytest
+import os
 
+import pytest
+import sqlalchemy
+
+os.environ["TEST_RUN"] = "test"  # noqa E402
+
+from chatcleaner.adapters.db.orm import start_mappers
 from chatcleaner.adapters.services.chat import ChatService
 from chatcleaner.domain.model.model import cleaning_factory
 from chatcleaner.domain.model.schemas import CleaningCreateDTO
+from tests.fake_container import FakeContainer
 from tests.fake_repository import FakeCleaningRepository
 from tests.fake_uow import FakeCleaningUnitOfWork
 
@@ -30,8 +37,6 @@ def get_cleaning_model_object():
             "uuid": "test",
             "chat": "\n19:10:00 from David to Everyone:\ntest",
             "cleaned_chat": "test",
-            # "created_at": "2021-09-25T19:05:59",
-            # "updated_at": "2021-09-25T19:05:59",
         }
     )
     return cleaning_factory(**result)
@@ -40,3 +45,17 @@ def get_cleaning_model_object():
 @pytest.fixture(scope="module")
 def get_fake_uow():
     return FakeCleaningUnitOfWork()
+
+
+@pytest.fixture(scope="module")
+def get_fake_container():
+    # Start orm mapper
+    start_mappers()
+
+    # Truncate table
+    uow = FakeContainer.cleaning_uow()
+    with uow:
+        uow.session.execute(sqlalchemy.text("DELETE FROM cleaning"))
+        uow.commit()
+
+    return FakeContainer()

@@ -95,9 +95,13 @@ migrations:
 migrate:
 	${PRE_RUN_API_COMMAND} migrate
 
-# target: run-server - Run the server
+# target: run - Run the server
 server:
 	${PRE_RUN_API_COMMAND} server
+
+# target: bash - Open bash
+bash:
+	${PRE_RUN_API_COMMAND} bash
 
 # target: setup - Setup the project locally
 setup:

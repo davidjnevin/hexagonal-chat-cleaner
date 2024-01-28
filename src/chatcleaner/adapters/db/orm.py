@@ -2,6 +2,7 @@ from sqlalchemy import (
     BigInteger,
     Column,
     DateTime,
+    Integer,
     MetaData,
     String,
     Table,
@@ -17,7 +18,12 @@ mapper_registry = registry(metadata=metadata)
 cleaning = Table(
     "cleaning",
     mapper_registry.metadata,
-    Column("id", BigInteger, primary_key=True, autoincrement=True),
+    Column(
+        "id",
+        BigInteger().with_variant(Integer, "sqlite"),
+        primary_key=True,
+        autoincrement=True,
+    ),
     Column("uuid", String, unique=True, nullable=False),
     Column("chat", String, nullable=False),
     Column("cleaned_chat", String, nullable=False),

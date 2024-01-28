@@ -9,3 +9,4 @@ uvicorn >=0.21.1
 flask >=2.2.3
 Flask-Bootstrap >=3.3.7.1
 psycopg2
+python-dotenv

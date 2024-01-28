@@ -1,6 +1,6 @@
 from typing import Any, Callable
 
-from sqlalchemy import Session
+from sqlalchemy.orm import Session
 
 from chatcleaner.adapters.repositories.cleaning import CleaningSqlAlchemyRepository
 from chatcleaner.domain.ports.unit_of_works.cleaning import CleaningUnitOfWorkInterface

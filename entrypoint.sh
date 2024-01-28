@@ -3,6 +3,9 @@
 set -e
 set -o nounset
 
+# export PATH=${PATH}:/src
+export PYTHONPATH=/app/src
+
 postgres_ready() {
     python << END
 import sys
@@ -74,7 +77,7 @@ case $1 in
 		;;
 	"test-int")
 		wait_other_containers ;\
-		pytest tests/integrations --log-cli-level=DEBUG
+		TEST_RUN="true" pytest tests/integrations --log-cli-level=DEBUG
 		;;
 	"test-repos")
 		wait_other_containers ;\
