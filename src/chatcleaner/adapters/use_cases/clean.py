@@ -16,7 +16,7 @@ class CleanUseCase(CleanUseCaseInterface):
         self.uow = uow
         self.service = service
 
-    def _add(self, chat: str):
+    def _clean(self, chat: str):
         with self.uow:
             # clean
             result = self.service.clean(chat)
@@ -26,3 +26,7 @@ class CleanUseCase(CleanUseCaseInterface):
             model = cleaning_factory(**data_)
             self.uow.cleaning.add(model)
             self.uow.commit()
+
+    def _get_all(self):
+        with self.uow:
+            return self.uow.cleaning.get_all()
