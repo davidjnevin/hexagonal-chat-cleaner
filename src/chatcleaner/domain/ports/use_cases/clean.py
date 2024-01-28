@@ -4,7 +4,7 @@ from chatcleaner.domain.ports.services.chat import ChatServiceInterface
 from chatcleaner.domain.ports.unit_of_works.cleaning import CleaningUnitOfWorkInterface
 
 
-class CleaningUseCaseInterface(abc.ABC):
+class CleanUseCaseInterface(abc.ABC):
     @abc.abstractmethod
     def __init__(self, uow: CleaningUnitOfWorkInterface, chat: ChatServiceInterface):
         raise NotImplementedError

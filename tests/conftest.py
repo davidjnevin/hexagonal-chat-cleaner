@@ -1,12 +1,11 @@
-import os
+import contextlib
 
 import pytest
 import sqlalchemy
 
-os.environ["TEST_RUN"] = "test"  # noqa E402
-
 from chatcleaner.adapters.db.orm import start_mappers
 from chatcleaner.adapters.services.chat import ChatService
+from chatcleaner.adapters.use_cases.clean import CleanUseCase
 from chatcleaner.domain.model.model import cleaning_factory
 from chatcleaner.domain.model.schemas import CleaningCreateDTO
 from tests.fake_container import FakeContainer
@@ -50,7 +49,8 @@ def get_fake_uow():
 @pytest.fixture(scope="module")
 def get_fake_container():
     # Start orm mapper
-    start_mappers()
+    with contextlib.suppress(sqlalchemy.exc.ArgumentError):
+        start_mappers()
 
     # Truncate table
     uow = FakeContainer.cleaning_uow()
@@ -59,3 +59,8 @@ def get_fake_container():
         uow.commit()
 
     return FakeContainer()
+
+
+@pytest.fixture(scope="module")
+def get_clean_use_case():
+    return CleanUseCase()
