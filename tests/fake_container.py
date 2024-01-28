@@ -17,6 +17,9 @@ class FakeContainer(containers.DeclarativeContainer):
         modules=[
             "chatcleaner.adapters.use_cases.clean",
         ],
+        packages=[
+            "chatcleaner.adapters.entrypoints.api",
+        ],
     )
     DEFAULT_SESSION_FACTORY = lambda: sessionmaker(bind=ENGINE, autocommit=False)
 
