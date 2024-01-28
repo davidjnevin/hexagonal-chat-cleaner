@@ -16,6 +16,8 @@ services:
     volumes:
       - .:/app
       - postgres_socket:/var/run/postgresql
+    networks:
+      - backend
 
   chat-cleaner-db:
     container_name: chat-cleaner-db-container
@@ -35,7 +37,12 @@ services:
     restart: always
     ports:
       - "54321:5432"
+    networks:
+      - backend
 
 volumes:
   postgres_data:
   postgres_socket:
+
+networks:
+  backend:
