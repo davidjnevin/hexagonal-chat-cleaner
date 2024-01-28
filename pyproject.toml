@@ -48,6 +48,8 @@ dev = [
 test = [
     "pytest",
     "pytest-cov",
+	"httpx",
+	"pytest-asyncio",
 ]
 
 
