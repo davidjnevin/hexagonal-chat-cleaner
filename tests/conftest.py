@@ -4,6 +4,7 @@ from chatcleaner.adapters.services.chat import ChatService
 from chatcleaner.domain.model.model import cleaning_factory
 from chatcleaner.domain.model.schemas import CleaningCreateDTO
 from tests.fake_repository import FakeCleaningRepository
+from tests.fake_uow import FakeCleaningUnitOfWork
 
 
 @pytest.fixture(scope="module")
@@ -34,3 +35,8 @@ def get_cleaning_model_object():
         }
     )
     return cleaning_factory(**result)
+
+
+@pytest.fixture(scope="module")
+def get_fake_uow():
+    return FakeCleaningUnitOfWork()
