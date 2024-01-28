@@ -26,4 +26,6 @@ class ChatService(ChatServiceInterface):
                 if not re.match(r"^\d{2}:\d{2}:\d{2}", line)
             ]
             # Join the lines into a single string
-            return "\n".join(non_time_lines)
+            # and remove the leading
+            # and trailing whitespace characters
+            return "\n".join(non_time_lines).strip()
