@@ -26,3 +26,7 @@ class CleanUseCase(CleanUseCaseInterface):
             model = cleaning_factory(**data_)
             self.uow.cleaning.add(model)
             self.uow.commit()
+
+    def _get_all(self):
+        with self.uow:
+            return self.uow.cleaning.get_all()

@@ -12,6 +12,13 @@ class CleanUseCaseInterface(abc.ABC):
     def clean(self, chat: str) -> None:
         return self._clean(chat)
 
+    def get_all(self):
+        return self._get_all()
+
     @abc.abstractmethod
     def _clean(self, chat: str) -> None:
+        raise NotImplementedError
+
+    @abc.abstractmethod
+    def _get_all(self):
         raise NotImplementedError
