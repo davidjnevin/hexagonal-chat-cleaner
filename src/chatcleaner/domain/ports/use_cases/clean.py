@@ -9,9 +9,9 @@ class CleanUseCaseInterface(abc.ABC):
     def __init__(self, uow: CleaningUnitOfWorkInterface, chat: ChatServiceInterface):
         raise NotImplementedError
 
-    def add(self, chat: str) -> None:
-        return self._add(chat)
+    def clean(self, chat: str) -> None:
+        return self._clean(chat)
 
     @abc.abstractmethod
-    def _add(self, chat: str) -> None:
+    def _clean(self, chat: str) -> None:
         raise NotImplementedError

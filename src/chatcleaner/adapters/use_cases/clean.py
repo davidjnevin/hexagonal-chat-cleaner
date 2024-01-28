@@ -16,7 +16,7 @@ class CleanUseCase(CleanUseCaseInterface):
         self.uow = uow
         self.service = service
 
-    def _add(self, chat: str):
+    def _clean(self, chat: str):
         with self.uow:
             # clean
             result = self.service.clean(chat)
