@@ -1,3 +1,5 @@
+from typing import Any
+
 from dependency_injector.wiring import Provide
 
 from chatcleaner.domain.model.model import cleaning_factory
@@ -27,6 +29,17 @@ class CleanUseCase(CleanUseCaseInterface):
             self.uow.cleaning.add(model)
             self.uow.commit()
 
-    def _get_all(self):
+    def _get_all(self) -> list[dict[str, list[str]]]:
+        data_ = {"results": []}
         with self.uow:
-            return self.uow.cleaning.get_all()
+            results = self.uow.cleaning.get_all()
+            for result in results:
+                data_["results"].append(result.uuid)
+            return data_
+
+    def _get_by_uuid(self, uuid_: str) -> dict[str, Any]:
+        with self.uow:
+            result = self.uow.cleaning.get_by_uuid(uuid_)
+            if result:
+                return {"result": result.to_dict()}
+            return {"result": "Not found"}

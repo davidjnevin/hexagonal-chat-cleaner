@@ -1,5 +1,6 @@
 import datetime
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
+from typing import Any
 
 from chatcleaner.domain.model.schemas import ChatCreateDTO
 
@@ -27,6 +28,9 @@ class Cleaning:
 
     def __hash__(self):
         return hash(self.uuid)
+
+    def to_dict(self) -> dict[str, Any]:
+        return asdict(self)
 
 
 def chat_factory(**kwargs: dict[str]) -> Chat:
