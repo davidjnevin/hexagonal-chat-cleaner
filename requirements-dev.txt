@@ -13,3 +13,5 @@ safety
 pip-audit
 pytest
 pytest-cov
+anyio
+httpx

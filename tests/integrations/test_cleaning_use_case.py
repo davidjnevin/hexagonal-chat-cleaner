@@ -1,6 +1,9 @@
+import pytest
+
 from chatcleaner.configurator.containers import Container
 
 
+@pytest.mark.integration
 def test_clean_use_case_clean(get_fake_container, get_clean_use_case):
     with Container.cleaning_uow.override(get_fake_container.cleaning_uow):
         with Container.chat_service.override(get_fake_container.chat_service):
@@ -13,6 +16,7 @@ def test_clean_use_case_clean(get_fake_container, get_clean_use_case):
                 assert result[0].cleaned_chat == "test"
 
 
+@pytest.mark.integration
 def test_clean_use_case_get_all(get_fake_container, get_clean_use_case):
     with Container.cleaning_uow.override(get_fake_container.cleaning_uow):
         with Container.chat_service.override(get_fake_container.chat_service):
@@ -35,6 +39,7 @@ def test_clean_use_case_get_all(get_fake_container, get_clean_use_case):
                 # assert result[3].cleaned_chat == "test 3"
 
 
+@pytest.mark.integration
 def test_clean_use_case_get_by_id(get_fake_container, get_clean_use_case):
     with Container.cleaning_uow.override(get_fake_container.cleaning_uow):
         with Container.chat_service.override(get_fake_container.chat_service):

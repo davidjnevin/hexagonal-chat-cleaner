@@ -17,6 +17,18 @@ class Settings:
         "sqlite:///cleaning.db" if os.environ.get("TEST_RUN") else postgres_uri
     )
 
+    # api_host = os.getenv("API_HOST", "0.0.0.0")
+    # api_port = 8000 if api_host == "localhost" else 8000
+    # api_uri: str = (
+    #     f"http://{api_host}:{api_port}"
+    #     if os.environ.get("TEST_RUN")
+    #     else f"http://{api_host}:{api_port}"
+    # )
+
 
 def get_database_uri() -> str:
     return Settings.db_uri
+
+
+# def get_api_uri() -> str:
+#     return Settings.api_uri

@@ -43,11 +43,13 @@ dev = [
     "pre-commit",
 	"safety",
     "pip-audit",
+	"anyio",
     ]
 
 test = [
     "pytest",
     "pytest-cov",
+	"httpx",
 ]
 
 
