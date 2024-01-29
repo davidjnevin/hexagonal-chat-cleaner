@@ -13,4 +13,4 @@ safety
 pip-audit
 pytest
 pytest-cov
-pytest-asyncio
+httpx
