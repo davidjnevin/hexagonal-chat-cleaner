@@ -9,7 +9,7 @@ from chatcleaner.domain.ports.use_cases.clean import CleanUseCaseInterface
 router = APIRouter()
 
 
-@router.post("/cleanings", response_model=None)
+@router.get("/cleanings", response_model=None)
 @inject
 async def get_all_cleaning(
     use_case: CleanUseCaseInterface = Depends(Provide["cleaning_use_case"]),
@@ -20,7 +20,7 @@ async def get_all_cleaning(
     )
 
 
-@router.post("/cleanings/{uuid}", response_model=None)
+@router.get("/cleanings/{uuid}", response_model=None)
 @inject
 async def get_cleaning_by_uuid(
     uuid: str,
