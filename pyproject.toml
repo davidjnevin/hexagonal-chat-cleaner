@@ -43,6 +43,7 @@ dev = [
     "pre-commit",
 	"safety",
     "pip-audit",
+	"anyio",
     ]
 
 test = [
