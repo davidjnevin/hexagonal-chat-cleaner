@@ -43,13 +43,13 @@ case $1 in
 		wait_other_containers ;\
 	 	if [ "$FASTAPI_DEBUG" = "true" ]; then
         uvicorn \
-            appname.main:app \
+            src.chatcleaner.adapters.entrypoints.api.app:app \
             --reload \
 			--host 0.0.0.0 \
 			--port 8000
 		else
 			uvicorn \
-				appname.main:app \
+            	src.chatcleaner.adapters.entrypoints.api.app:app \
 				--workers 2 \
 				--host 0.0.0.0 \
 				--port 8000
