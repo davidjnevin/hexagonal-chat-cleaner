@@ -6,6 +6,6 @@ api_router = APIRouter()
 
 api_router.include_router(
     route_cleaning.router,
-    # prefix="/clean",
+    prefix="/clean",
     tags=["clean"],
 )
