@@ -1,9 +1,13 @@
 import contextlib
+from typing import AsyncIterator
 
+import httpx
 import pytest
 import sqlalchemy
+from fastapi.testclient import TestClient
 
 from chatcleaner.adapters.db.orm import start_mappers
+from chatcleaner.adapters.entrypoints.api.app import app
 from chatcleaner.adapters.services.chat import ChatService
 from chatcleaner.adapters.use_cases.clean import CleanUseCase
 from chatcleaner.domain.model.model import cleaning_factory
@@ -11,6 +15,11 @@ from chatcleaner.domain.model.schemas import CleaningCreateDTO
 from tests.fake_container import FakeContainer
 from tests.fake_repository import FakeCleaningRepository
 from tests.fake_uow import FakeCleaningUnitOfWork
+
+
+@pytest.fixture
+def anyio_backend():
+    return "asyncio"
 
 
 @pytest.fixture(scope="module")
@@ -64,3 +73,15 @@ def get_fake_container():
 @pytest.fixture(scope="module")
 def get_clean_use_case():
     return CleanUseCase()
+
+
+@pytest.fixture(scope="session")
+def client():
+    with TestClient(app) as client_:
+        yield client_
+
+
+@pytest.fixture()
+async def async_client() -> AsyncIterator[httpx.AsyncClient]:
+    async with httpx.AsyncClient(app=app, base_url="http://test") as client_:
+        yield client_
