@@ -1,4 +1,6 @@
+import fastapi
 import pytest
+from fastapi.exceptions import HTTPException
 from httpx import AsyncClient
 
 from chatcleaner.adapters.entrypoints.api.app import app
@@ -59,3 +61,34 @@ async def test_get_cleaning_by_uuid_async_api_with_fake_uuid_return_Not_found(
         assert response.status_code == 200
         data = response.json()
         assert data["result"] == "Not found"
+
+
+@pytest.mark.anyio
+@pytest.mark.integration
+async def test_clean_chat_endpoint_returns_201(
+    get_fake_container,
+    async_client: AsyncClient,
+    chat_text_with_times: str,
+    chat_text_without_times: str,
+):
+    use_case = get_fake_container.cleaning_use_case()
+    with app.container.cleaning_use_case.override(use_case):
+        response = await async_client.post(
+            "/clean/cleanings", json={"body": chat_text_with_times}
+        )
+        assert response.status_code == 201
+        assert response.json()["uuid"] is not None
+        assert response.json()["cleaned_chat"] == chat_text_without_times
+
+
+@pytest.mark.anyio
+@pytest.mark.integration
+async def test_clean_chat_endpoint_returns_error_if_max_length_is_exceeded(
+    get_fake_container, async_client: AsyncClient
+):
+    use_case = get_fake_container.cleaning_use_case()
+    with app.container.cleaning_use_case.override(use_case):
+        response = await async_client.post(
+            "/clean/cleanings", json={"chat": "a" * 2001}
+        )
+        assert response.status_code == 422
