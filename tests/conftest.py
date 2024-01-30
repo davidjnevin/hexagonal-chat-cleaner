@@ -33,6 +33,11 @@ def chat_text_with_times():
 
 
 @pytest.fixture(scope="module")
+def chat_text_without_times():
+    return "so far...\nOur highest priority is to satisfy the customer\nthrough early and continuous delivery\nof valuable software.\nthe highest, the lowest\nhttps://agilemanifesto.org/principles.html"
+
+
+@pytest.fixture(scope="module")
 def get_fake_repository():
     return FakeCleaningRepository()
 

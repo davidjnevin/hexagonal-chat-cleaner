@@ -28,6 +28,7 @@ class CleanUseCase(CleanUseCaseInterface):
             model = cleaning_factory(**data_)
             self.uow.cleaning.add(model)
             self.uow.commit()
+            return {"uuid": model.uuid, "cleaned_chat": model.cleaned_chat}
 
     def _get_all(self) -> list[dict[str, list[str]]]:
         data_ = {"results": []}

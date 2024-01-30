@@ -33,6 +33,7 @@ def start_application():
     app_.container = container
     include_router(app_)
     configure_cors(app_)
+
     # start orm mappers
     try:
         start_mappers()
