@@ -9,18 +9,19 @@ readme = "README.md"
 dynamic = ["version", "description"]
 requires-python = ">=3.10"
 dependencies = [
+	"alembic",
     "dependency-injector",
-    "marshmallow",
-    "icontract",
-    "python-ulid",
-    "alembic",
-    "SQLAlchemy",
-    "fastapi",
-    "uvicorn",
+	"fastapi",
     "flask",
+	"icontract",
+	"marshmallow",
     "Flask-Bootstrap",
 	"psycopg2",
+	"python-ulid",
 	"python-dotenv",
+	"pydantic",
+	"SQLAlchemy",
+	"uvicorn",
 ]
 
 [tool.flit.module]

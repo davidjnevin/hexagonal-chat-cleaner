@@ -3,10 +3,11 @@ marshmallow >=3.19.0
 icontract >=2.6.2
 python-ulid >=1.1.0
 alembic ==1.9.3
-SQLAlchemy ==1.4.46
+SQLAlchemy==2.0.0b1
 fastapi >=0.95.0
 uvicorn >=0.21.1
 flask >=2.2.3
 Flask-Bootstrap >=3.3.7.1
+pydantic >=2.6.0
 psycopg2
 python-dotenv

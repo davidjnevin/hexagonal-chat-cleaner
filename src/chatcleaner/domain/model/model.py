@@ -33,12 +33,12 @@ class Cleaning:
         return asdict(self)
 
 
-def chat_factory(**kwargs: dict[str]) -> Chat:
+def chat_factory(**kwargs: str) -> Chat:
     schema_ = ChatCreateDTO()
     model = Chat(**kwargs)
     schema_.dump(model)
     return model
 
 
-def cleaning_factory(**kwargs: dict[str]) -> Cleaning:
+def cleaning_factory(**kwargs: str) -> Cleaning:
     return Cleaning(**kwargs)

@@ -34,7 +34,7 @@ class CleanUseCase(CleanUseCaseInterface):
                 "cleaned_chat": model.cleaned_chat,
             }
 
-    def _get_all(self) -> list[dict[str, list[str]]]:
+    def _get_all(self) -> dict[str, list]:
         data_ = {"results": []}
         with self.uow:
             results = self.uow.cleaning.get_all()
