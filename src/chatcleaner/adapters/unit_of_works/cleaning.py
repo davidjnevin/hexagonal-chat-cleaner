@@ -7,7 +7,6 @@ from chatcleaner.domain.ports.unit_of_works.cleaning import CleaningUnitOfWorkIn
 
 
 class CleaningSqlAlchemyUnitOfWork(CleaningUnitOfWorkInterface):
-
     def __init__(self, session_factory: Callable[[], Any]):
         self.session_factory = session_factory()
 
