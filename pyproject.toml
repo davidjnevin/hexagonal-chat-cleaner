@@ -7,7 +7,7 @@ name = "chat_cleaner"
 authors = [{name = "David Nevin", email = "dnevincodes@gmail.com"}]
 readme = "README.md"
 dynamic = ["version", "description"]
-requires-python = ">=3.10"
+requires-python = ">=3.9"
 dependencies = [
 	"alembic",
     "dependency-injector",
@@ -39,6 +39,7 @@ dev = [
     "flake8",
 	"Flake8-pyproject",
 	"bandit",
+	"coverage",
 	"flake8-bugbear",
 	"flake8-cognitive-complexity",
     "pre-commit",
