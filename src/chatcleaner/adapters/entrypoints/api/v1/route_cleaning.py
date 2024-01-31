@@ -45,7 +45,7 @@ async def clean_chat(
     chat: CleaningIn,
     use_case: CleanUseCaseInterface = Depends(Provide["cleaning_use_case"]),
 ):
-    data = use_case.clean(chat.body)
+    data = use_case.clean(chat.chat_text)
     return Response(
         content=json.dumps(data), media_type="application/json", status_code=201
     )

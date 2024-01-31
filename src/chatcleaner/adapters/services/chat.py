@@ -8,17 +8,17 @@ from chatcleaner.domain.ports.services.chat import ChatServiceInterface
 
 
 @contextmanager
-def chat_factory_validation(text: str) -> Generator:
-    data_ = {"chat": text}
+def chat_factory_validation(chat_text: str) -> Generator:
+    data_ = {"chat_text": chat_text}
     result = ChatCreateDTO().load(data_)
     yield chat_factory(**result)
 
 
 class ChatService(ChatServiceInterface):
-    def _clean(self, text: str) -> str:
-        with chat_factory_validation(text) as chat:
+    def _clean(self, chat_text: str) -> str:
+        with chat_factory_validation(chat_text) as chat:
             # Split the text into lines
-            lines = chat.chat.splitlines()
+            lines = chat.chat_text.splitlines()
             # Remove the lines that begin with time info from the lines list
             non_time_lines = [
                 line.replace("\t", "").replace("\r", "").replace("$", "").strip()

@@ -25,7 +25,7 @@ cleaning = Table(
         autoincrement=True,
     ),
     Column("uuid", String, unique=True, nullable=False),
-    Column("chat", String, nullable=False),
+    Column("chat_text", String, nullable=False),
     Column("cleaned_chat", String, nullable=False),
     Column("created_at", DateTime, nullable=False),
     Column("updated_at", DateTime, nullable=False),

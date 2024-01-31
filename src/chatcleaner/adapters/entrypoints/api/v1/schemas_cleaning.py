@@ -1,15 +1,21 @@
 import datetime
+import os
 
-from pydantic import BaseModel
+from dotenv import load_dotenv
+from pydantic import BaseModel, Field
+
+load_dotenv()
+
+MAX_CHAT_LENGTH = int(os.getenv("MAX_CHAT_LENGTH"))
 
 
 class CleaningIn(BaseModel):
-    body: str
+    chat_text: str = Field(max_length=2000, min_length=1)
 
 
 class CleaningOut(BaseModel):
     uuid: str
-    chat: str
+    chat_text: str
     cleaned_chat: str
     created_at: datetime.datetime
     updated_at: datetime.datetime
