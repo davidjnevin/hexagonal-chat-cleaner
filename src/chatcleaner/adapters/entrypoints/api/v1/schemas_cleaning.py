@@ -1,6 +1,7 @@
 import datetime
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel  # type: ignore
+from pydantic import Field
 
 # This can later be moved to a config file. # TODO
 MAX_CHAT_LENGTH = 2000
