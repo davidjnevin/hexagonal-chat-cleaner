@@ -1,17 +1,18 @@
 -r requirements.txt
-black
-isort
+anyio
 autoflake
-pytype; platform_system != 'Windows'
-flake8
-Flake8-pyproject
 bandit
+black
+flake8
+coverage
+Flake8-pyproject
 flake8-bugbear
 flake8-cognitive-complexity
-pre-commit
-safety
-pip-audit
-pytest
-pytest-cov
-anyio
 httpx
+isort
+pip-audit
+pre-commit
+pytest
+pytype; platform_system != 'Windows'
+pytest-cov
+safety
