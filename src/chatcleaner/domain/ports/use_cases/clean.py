@@ -10,8 +10,8 @@ class CleanUseCaseInterface(abc.ABC):
     def __init__(self, uow: CleaningUnitOfWorkInterface, chat: ChatServiceInterface):
         raise NotImplementedError
 
-    def clean(self, chat: str) -> None:
-        return self._clean(chat)
+    def clean(self, chat_text: str) -> None:
+        return self._clean(chat_text)
 
     def get_all(self):
         return self._get_all()
@@ -20,7 +20,7 @@ class CleanUseCaseInterface(abc.ABC):
         return self._get_by_uuid(uuid_)
 
     @abc.abstractmethod
-    def _clean(self, chat: str) -> None:
+    def _clean(self, chat_text: str) -> None:
         raise NotImplementedError
 
     @abc.abstractmethod

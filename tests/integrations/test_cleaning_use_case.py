@@ -16,7 +16,7 @@ def test_clean_use_case_clean(get_fake_container, get_clean_use_case):
             with uow_:
                 result = uow_.cleaning.get_all()
                 assert len(result) == 1
-                assert result[0].chat == "\n19:10:00 from David to Everyone:\ntest"
+                assert result[0].chat_text == "\n19:10:00 from David to Everyone:\ntest"
                 assert result[0].cleaned_chat == "test"
 
 

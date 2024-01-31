@@ -3,12 +3,12 @@ import datetime
 from marshmallow import EXCLUDE, Schema, fields, validate
 from ulid import ULID
 
-# This can later be moved to a config file.
+# This can later be moved to a config file. # TODO
 MAX_CHAT_LENGTH = 2000
 
 
 class ChatCreateDTO(Schema):
-    chat = fields.Str(
+    chat_text = fields.Str(
         required=True, validate=validate.Length(min=1, max=MAX_CHAT_LENGTH)
     )
 
@@ -18,7 +18,7 @@ class ChatCreateDTO(Schema):
 
 class CleaningCreateDTO(Schema):
     uuid = fields.String(load_default=lambda: str(ULID()))
-    chat = fields.Str(
+    chat_text = fields.Str(
         required=True, validate=validate.Length(min=1, max=MAX_CHAT_LENGTH)
     )
     cleaned_chat = fields.Str(

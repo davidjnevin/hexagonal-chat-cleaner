@@ -7,21 +7,21 @@ from chatcleaner.domain.model.schemas import ChatCreateDTO
 
 @dataclass
 class Chat:
-    chat: str
+    chat_text: str
 
     def __hash__(self):
-        return hash(self.chat)
+        return hash(self.chat_text)
 
     def __eq__(self, other):
         if not isinstance(other, Chat):
             return False
-        return self.chat == other.chat
+        return self.chat_text == other.chat_text
 
 
 @dataclass
 class Cleaning:
     uuid: str
-    chat: str
+    chat_text: str
     cleaned_chat: str
     created_at: datetime.datetime
     updated_at: datetime.datetime

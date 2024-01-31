@@ -27,13 +27,13 @@ def get_chat_service():
     return ChatService()
 
 
-@pytest.fixture(scope="module")
-def chat_text_with_times():
+@pytest.fixture()
+def chat_text_with_times() -> str:
     return "\n19:05:59 From David to Everyone:\nso far...\n19:35:48 From David to Everyone:\nOur highest priority is to satisfy the customer\nthrough early and continuous delivery\nof valuable software.\n19:36:59 From David to Everyone:\nthe highest, the lowest\n19:55:50 From David to Everyone:\nhttps://agilemanifesto.org/principles.html"
 
 
-@pytest.fixture(scope="module")
-def chat_text_without_times():
+@pytest.fixture()
+def chat_text_without_times() -> str:
     return "so far...\nOur highest priority is to satisfy the customer\nthrough early and continuous delivery\nof valuable software.\nthe highest, the lowest\nhttps://agilemanifesto.org/principles.html"
 
 
@@ -48,7 +48,7 @@ def get_cleaning_model_object():
     result = schema_.load(
         {
             "uuid": "test",
-            "chat": "\n19:10:00 from David to Everyone:\ntest",
+            "chat_text": "\n19:10:00 from David to Everyone:\ntest",
             "cleaned_chat": "test",
         }
     )
