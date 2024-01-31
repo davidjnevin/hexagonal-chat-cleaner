@@ -1,4 +1,3 @@
-import fastapi
 import pytest
 from httpx import AsyncClient
 
@@ -95,8 +94,8 @@ async def test_clean_chat_endpoint_returns_error_if_max_length_is_exceeded(
             "/clean/cleanings", json={"chat_text": too_long_chat_text}
         )
         assert response.status_code == 422
-        assert "ensure this value has at most" in response.json()["detail"][0]["msg"]
-        assert response.json()["detail"][0]["type"] == "value_error.any_str.max_length"
+        assert "String should have at most" in response.json()["detail"][0]["msg"]
+        assert response.json()["detail"][0]["type"] == "string_too_long"
 
 
 @pytest.mark.anyio
@@ -111,5 +110,8 @@ async def test_clean_chat_endpoint_returns_error_if_length_is_less_that_min_leng
             "/clean/cleanings", json={"chat_text": too_short_chat_text}
         )
         assert response.status_code == 422
-        assert "ensure this value has at least" in response.json()["detail"][0]["msg"]
-        assert response.json()["detail"][0]["type"] == "value_error.any_str.min_length"
+        assert (
+            "String should have at least 1 character"
+            in response.json()["detail"][0]["msg"]
+        )
+        assert response.json()["detail"][0]["type"] == "string_too_short"
