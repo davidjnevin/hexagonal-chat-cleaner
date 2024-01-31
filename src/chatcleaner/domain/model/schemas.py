@@ -3,7 +3,7 @@ import datetime
 from marshmallow import EXCLUDE, Schema, fields, validate
 from ulid import ULID
 
-# This can later be moved to a config file.
+# This can later be moved to a config file. # TODO
 MAX_CHAT_LENGTH = 2000
 
 

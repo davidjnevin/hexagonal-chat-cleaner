@@ -1,16 +1,13 @@
 import datetime
-import os
 
-from dotenv import load_dotenv
 from pydantic import BaseModel, Field
 
-load_dotenv()
-
-MAX_CHAT_LENGTH = int(os.getenv("MAX_CHAT_LENGTH"))
+# This can later be moved to a config file. # TODO
+MAX_CHAT_LENGTH = 2000
 
 
 class CleaningIn(BaseModel):
-    chat_text: str = Field(max_length=2000, min_length=1)
+    chat_text: str = Field(max_length=MAX_CHAT_LENGTH, min_length=1)
 
 
 class CleaningOut(BaseModel):
