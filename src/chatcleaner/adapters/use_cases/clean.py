@@ -18,17 +18,21 @@ class CleanUseCase(CleanUseCaseInterface):
         self.uow = uow
         self.service = service
 
-    def _clean(self, chat: str):
+    def _clean(self, chat_text: str):
         with self.uow:
             # clean
-            result = self.service.clean(chat)
+            result = self.service.clean(chat_text)
             # save
             schema_ = CleaningCreateDTO()
-            data_ = schema_.load({"chat": chat, "cleaned_chat": result})
+            data_ = schema_.load({"chat_text": chat_text, "cleaned_chat": result})
             model = cleaning_factory(**data_)
             self.uow.cleaning.add(model)
             self.uow.commit()
-            return {"uuid": model.uuid, "cleaned_chat": model.cleaned_chat}
+            return {
+                "uuid": model.uuid,
+                "chat_text": chat_text,
+                "cleaned_chat": model.cleaned_chat,
+            }
 
     def _get_all(self) -> list[dict[str, list[str]]]:
         data_ = {"results": []}
