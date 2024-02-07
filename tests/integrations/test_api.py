@@ -89,7 +89,7 @@ async def test_clean_chat_endpoint_returns_error_if_max_length_is_exceeded(
 ):
     use_case = get_fake_container.cleaning_use_case()
     with app.container.cleaning_use_case.override(use_case):
-        too_long_chat_text = "a" * 2001
+        too_long_chat_text = "a" * 6501
         response = await async_client.post(
             "/clean/cleanings", json={"chat_text": too_long_chat_text}
         )
