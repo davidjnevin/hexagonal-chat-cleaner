@@ -4,7 +4,7 @@ from marshmallow import EXCLUDE, Schema, fields, validate
 from ulid import ULID
 
 # This can later be moved to a config file. # TODO
-MAX_CHAT_LENGTH = 2000
+MAX_CHAT_LENGTH = 6500
 
 
 class ChatCreateDTO(Schema):

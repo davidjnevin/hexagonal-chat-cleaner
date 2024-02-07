@@ -60,10 +60,10 @@ def test_if_chat_dto_can_be_created_with_empty_string():
         assert result == {"chat_text": ""}
 
 
-def test_if_chat_dto_can_be_created_with_more_than_2000_characters():
+def test_if_chat_dto_can_be_created_with_more_than_6500_characters():
     with pytest.raises(marshmallow.exceptions.ValidationError):
         schema_ = ChatCreateDTO()
-        dirty_text = "a" * 2001
+        dirty_text = "a" * 6501
         result = schema_.load({"chat_text": dirty_text})
         assert result == {"chat_text": dirty_text}
 
@@ -120,16 +120,16 @@ def test_if_cleaning_is_created_with_empty_strings():
         assert model_.cleaned_chat == "test"
 
 
-def test_if_cleaning_is_created_with_more_than_2000_characters():
+def test_if_cleaning_is_created_with_more_than_6500_characters():
     schema_ = CleaningCreateDTO()
     with pytest.raises(marshmallow.exceptions.ValidationError):
-        dirty_text = "a" * 2001
+        dirty_text = "a" * 6501
         result = schema_.load({"chat_text": dirty_text, "cleaned_chat": "test"})
         model_ = cleaning_factory(**result)
         assert model_.chat_text == dirty_text
         assert model_.cleaned_chat == "test"
     with pytest.raises(marshmallow.exceptions.ValidationError):
-        dirty_text = "a" * 2001
+        dirty_text = "a" * 6501
         result = schema_.load(
             {"chat_text": "\n19:00:54 David said:\ntest", "cleaned_chat": dirty_text}
         )
