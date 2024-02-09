@@ -3,9 +3,10 @@ from httpx import AsyncClient
 
 from chatcleaner.adapters.entrypoints.api.app import app
 
+pytestmark = pytest.mark.integration
+
 
 @pytest.mark.anyio
-@pytest.mark.integration
 async def test_get_all_cleaning_async_api(
     get_fake_container, async_client: AsyncClient
 ):
@@ -33,7 +34,6 @@ async def test_get_all_cleaning_async_api(
 
 
 @pytest.mark.anyio
-@pytest.mark.integration
 async def test_get_cleaning_by_uuid_async_api(
     get_fake_container, async_client: AsyncClient
 ):
@@ -50,7 +50,6 @@ async def test_get_cleaning_by_uuid_async_api(
 
 
 @pytest.mark.anyio
-@pytest.mark.integration
 async def test_get_cleaning_by_uuid_async_api_with_fake_uuid_return_Not_found(
     get_fake_container, async_client: AsyncClient
 ):
@@ -63,7 +62,6 @@ async def test_get_cleaning_by_uuid_async_api_with_fake_uuid_return_Not_found(
 
 
 @pytest.mark.anyio
-@pytest.mark.integration
 async def test_clean_chat_endpoint_returns_cleaning(
     get_fake_container,
     async_client: AsyncClient,
@@ -83,7 +81,6 @@ async def test_clean_chat_endpoint_returns_cleaning(
 
 
 @pytest.mark.anyio
-@pytest.mark.integration
 async def test_clean_chat_endpoint_returns_error_if_max_length_is_exceeded(
     get_fake_container, async_client: AsyncClient
 ):
@@ -99,7 +96,6 @@ async def test_clean_chat_endpoint_returns_error_if_max_length_is_exceeded(
 
 
 @pytest.mark.anyio
-@pytest.mark.integration
 async def test_clean_chat_endpoint_returns_error_if_length_is_less_that_min_length(
     get_fake_container, async_client: AsyncClient
 ):
