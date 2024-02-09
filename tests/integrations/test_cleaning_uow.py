@@ -1,7 +1,8 @@
 import pytest
 
+pytestmark = pytest.mark.integration
 
-@pytest.mark.integration
+
 def test_uow_add_cleaning(get_fake_container, get_cleaning_model_object):
     uow = get_fake_container.cleaning_uow()
     with uow:
