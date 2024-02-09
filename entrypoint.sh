@@ -57,7 +57,7 @@ case $1 in
 	;;
 	"test")
 		wait_other_containers ;\
-	    TEST_RUN="TRUE" pytest -svvv  tests
+	    pytest -svvv  -m "not slow and not integration" tests
 		;;
 	"test-last-failed")
 		wait_other_containers ;\
