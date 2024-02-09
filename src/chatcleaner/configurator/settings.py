@@ -27,7 +27,8 @@ class Settings:
 
 
 def get_database_uri() -> str:
-    return Settings.db_uri
+    return Settings.postgres_uri
+    # return Settings.db_uri
 
 
 # def get_api_uri() -> str:
