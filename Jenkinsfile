@@ -8,8 +8,19 @@ pipeline {
     }
 
     stage('list files') {
-      steps {
-        sh 'ls -la'
+      parallel {
+        stage('list files') {
+          steps {
+            sh 'ls -la'
+          }
+        }
+
+        stage('backend unit test') {
+          steps {
+            sh 'make install && make test'
+          }
+        }
+
       }
     }
 
