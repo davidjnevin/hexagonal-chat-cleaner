@@ -17,7 +17,7 @@ pipeline {
 
         stage('backend unit test') {
           steps {
-            sh 'make install && make test'
+            sh 'make build && make test'
           }
         }
 
