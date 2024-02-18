@@ -14,8 +14,6 @@ services:
     volumes:
       - .:/app
       - postgres_socket:/var/run/postgresql
-    networks:
-      - nginx_default
 
   chat-cleaner-db:
     container_name: chat-cleaner-db-container
@@ -35,13 +33,6 @@ services:
     restart: always
     ports:
       - "54321:5432"
-    networks:
-      - nginx_default
-
 volumes:
   postgres_data:
   postgres_socket:
-
-networks:
-  nginx_default:
-    external: true
