@@ -10,7 +10,7 @@ services:
       - ./.env
     command: server
     ports:
-      - 8000:8000
+      - 8088:8000
     depends_on:
     - chat-cleaner-db
     volumes:
@@ -19,7 +19,7 @@ services:
     networks:
       - nginx_default
 
-n  chat-cleaner-db:
+  chat-cleaner-db:
     container_name: chat-cleaner-db-container
     image: postgres
     environment:

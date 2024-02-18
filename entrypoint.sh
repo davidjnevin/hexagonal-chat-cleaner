@@ -52,6 +52,7 @@ case $1 in
             	src.chatcleaner.adapters.entrypoints.api.app:app \
 				--workers 2 \
 				--host 0.0.0.0 \
+				--headers \
 				--port 8000
 		fi
 	;;
