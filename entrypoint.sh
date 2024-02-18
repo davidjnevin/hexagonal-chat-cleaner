@@ -1,9 +1,11 @@
 #!/bin/bash
 
+#load environment variables from .env file
+[ -f .env ] || export $(grep -v '^#' .env | xargs)
 set -e
 set -o nounset
 
-# export PATH=${PATH}:/src
+export PATH=${PATH}:/src
 export PYTHONPATH=/app/src
 
 postgres_ready() {
@@ -46,14 +48,15 @@ case $1 in
             src.chatcleaner.adapters.entrypoints.api.app:app \
             --reload \
 			--host 0.0.0.0 \
-			--port 8000
+			--proxy-headers \
+			--port 8088
 		else
 			uvicorn \
             	src.chatcleaner.adapters.entrypoints.api.app:app \
 				--workers 2 \
 				--host 0.0.0.0 \
-				--headers \
-				--port 8000
+				--proxy-headers \
+				--port 8088
 		fi
 	;;
 	"test")
