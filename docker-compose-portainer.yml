@@ -3,9 +3,7 @@ version: '3.9'
 services:
   chat-cleaner-app:
     container_name: chat-cleaner-app-container
-    build:
-      dockerfile: dockerfiles/Dockerfile
-      context: .
+    image: ghcr.io/davidjnevin/hexagonal-chat-cleaner:latest
     command: server
     ports:
       - 8088:8000
