@@ -3,7 +3,7 @@ version: '3.9'
 services:
   chat-cleaner-app:
     container_name: chat-cleaner-app-container
-    image: ghcr.io/davidjnevin/hexagonal-chat-cleaner:latest
+    image: ghcr.io/davidjnevin/hexagonal-chat-cleaner:main
     command: server
     ports:
       - 8088:8000
