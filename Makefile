@@ -1,5 +1,5 @@
 DOCKER_COMPOSE=docker compose
-DOCKER_ENVIRONMENT=docker-compose.yml
+DOCKER_ENVIRONMENT=docker-compose-portainer.yml
 PRE_RUN_API_COMMAND=${DOCKER_COMPOSE} -f ${DOCKER_ENVIRONMENT} run --rm chat-cleaner-app
 PACKAGE_NAME=chatcleaner
 VENV_FOLDER=.venv
@@ -10,9 +10,10 @@ PYTHON=./.venv/bin/python
 PHONY = help install install-dev test format lint type-check secure migrations migrate
 
 # target: help - Display callable targets.
+# Remove first 9 characters from egrep output for cleaner help display
 help:
 	@echo "---------------HELP-----------------"
-	@egrep "^# target:" [Mm]akefile
+	@egrep "^# target:" [Mm]akefile | sed -e 's/target://'
 	@echo "------------------------------------"
 
 # target: install - Install the project locally
