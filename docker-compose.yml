@@ -6,8 +6,8 @@ services:
     build:
       dockerfile: dockerfiles/Dockerfile
       context: .
-    env_file:
-      - ./.env
+    # env_file:
+    #   - ./.env
     command: server
     ports:
       - 8000:8000
