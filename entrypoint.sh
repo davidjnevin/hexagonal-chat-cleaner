@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #load environment variables from .env file
-[ -f .env ] || export $(grep -v '^#' .env | xargs)
+# [ -f .env ] || export $(grep -v '^#' .env | xargs)
 set -e
 set -o nounset
 
