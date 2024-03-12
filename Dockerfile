@@ -18,6 +18,7 @@ RUN set -ex ;\
 		/var/lib/apt/lists/*
 
 WORKDIR /app
+RUN chmod 755 entrypoint.sh
 USER app_user:app_user
 
 COPY --chown=app_user:app_user . .
