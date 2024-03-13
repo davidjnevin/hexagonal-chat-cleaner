@@ -21,7 +21,7 @@ WORKDIR /app
 USER app_user:app_user
 
 COPY --chown=app_user:app_user . .
-RUN chmod o+x entrypoint.sh
+RUN chmod o+x /app/entrypoint.sh
 
 ENTRYPOINT [ "/app/entrypoint.sh" ]
 CMD ["server"]
