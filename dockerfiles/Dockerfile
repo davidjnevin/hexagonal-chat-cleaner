@@ -25,5 +25,5 @@ User root
 RUN chmod o+x /app/entrypoint.sh
 USER app_user:app_user
 
-ENTRYPOINT [ "entrypoint.sh" ]
+ENTRYPOINT [ "/app/entrypoint.sh" ]
 CMD ["server"]
