@@ -1,7 +1,4 @@
 node {
-	environment {
-    SECRET_FILE = credentials('jenkins_env.secret')
-}
     def app
 
     stage('Clone repository') {
@@ -18,6 +15,7 @@ node {
     }
 
 	stage('Build image') {
+		withCredentials([file(credentialsId: 'jenkins_env.secret', variable: 'DOCKER_COMPOSE_FILE')]) {
 		sh 'make build'
 	}
 
