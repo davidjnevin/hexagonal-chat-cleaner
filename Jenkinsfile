@@ -1,4 +1,7 @@
 node {
+	environment {
+    SECRET_FILE = credentials('jenkins_env,secret')
+}
     def app
 
     stage('Clone repository') {
