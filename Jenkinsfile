@@ -13,4 +13,9 @@ node {
 
         sh 'ls -lta'
     }
+
+	stage('Build image') {
+		sh 'make build'
+	}
+
 }
