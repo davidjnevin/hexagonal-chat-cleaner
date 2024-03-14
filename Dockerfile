@@ -1,5 +1,7 @@
 FROM python:3.11
-
+LABEL name=chat-cleaner-app \
+	  version=0.1.0 \
+	  maintainer="David J Nevin"
 
 ENV PYTHONUNBUFFERED 1
 ENV PYTHONDONTWRITEBYTECODE 1
