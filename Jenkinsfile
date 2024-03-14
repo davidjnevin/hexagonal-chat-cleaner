@@ -18,5 +18,6 @@ node {
 		withCredentials([file(credentialsId: 'jenkins_env.secret', variable: 'DOCKER_COMPOSE_FILE')]) {
 		sh 'make build'
 	}
+	}
 
 }
