@@ -22,8 +22,7 @@ USER app_user:app_user
 
 COPY --chown=app_user:app_user . .
 USER root:root
-RUN chmod 755 /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
 
-USER app_user:app_user
 ENTRYPOINT [ "/app/entrypoint.sh" ]
 CMD ["server"]
