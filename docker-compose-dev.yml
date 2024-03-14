@@ -1,0 +1,48 @@
+version: '3.9'
+
+services:
+  chat-cleaner-app:
+    container_name: chat-cleaner-app-container
+    build:
+      dockerfile: dockerfiles/Dockerfile
+      context: .
+    env_file:
+      - ./.env
+    command: server
+    ports:
+      - 8000:8000
+    depends_on:
+    - chat-cleaner-db
+    volumes:
+      - .:/app
+      - postgres_socket:/var/run/postgresql
+    networks:
+      - backend
+
+  chat-cleaner-db:
+    container_name: chat-cleaner-db-container
+    image: postgres
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+      - postgres_socket:/var/run/postgresql/
+    healthcheck:
+      test: pg_isready -q --username=$$POSTGRES_USER --dbname=$$POSTGRES_DB
+      timeout: 45s
+      interval: 10s
+      retries: 10
+    restart: always
+    ports:
+      - "54321:5432"
+    networks:
+      - backend
+
+volumes:
+  postgres_data:
+  postgres_socket:
+
+networks:
+  backend:
