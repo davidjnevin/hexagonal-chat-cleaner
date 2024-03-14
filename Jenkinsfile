@@ -1,28 +1,16 @@
-pipeline {
-  agent any
-  stages {
-    stage('Checkout Code') {
-      steps {
-        git(url: 'https://github.com/davidjnevin/hexagonal-chat-cleaner', branch: 'main')
-      }
+node {
+    def app
+
+    stage('Clone repository') {
+        /* Let's make sure we have the repository cloned to our workspace */
+
+        git branch: 'portainer-build', url: 'https://github.com/davidjnevin/hexagonal-chat-cleaner'
     }
 
-    stage('list files') {
-      parallel {
-        stage('list files') {
-          steps {
-            sh 'ls -la'
-          }
-        }
+    stage('List files') {
+        /* This builds the actual image; synonymous to
+         * docker build on the command line */
 
-        stage('backend unit test') {
-          steps {
-            sh 'make build && make test'
-          }
-        }
-
-      }
+        sh 'ls -lta'
     }
-
-  }
 }
