@@ -15,7 +15,7 @@ node {
     }
 
 	stage('Build image') {
-		withCredentials([file(credentialsId: 'jenkins_env.secret', variable: 'DOCKER_COMPOSE_FILE')]) {
+		withCredentials([file(credentialsId: 'env-varibales-jenkins-testing', variable: 'DOCKER_COMPOSE_FILE')]) {
 		sh 'make build'
 	}
 	}
