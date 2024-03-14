@@ -1,6 +1,6 @@
 node {
 	environment {
-    SECRET_FILE = credentials('jenkins_env,secret')
+    SECRET_FILE = credentials('jenkins_env.secret')
 }
     def app
 
