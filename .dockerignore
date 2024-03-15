@@ -2,6 +2,7 @@ config
 venv
 dockerfiles/Dockerfile
 docker-compose.yml
+.tox
 .git
 .venv
 *.db
