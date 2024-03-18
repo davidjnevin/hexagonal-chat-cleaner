@@ -1,4 +1,4 @@
-version: '3.9'
+version: "3.9"
 
 services:
   chat-cleaner-app:
@@ -8,7 +8,8 @@ services:
       context: .
     env_file:
       - ./.env
-    command: server
+    image: chat-cleaner-app
+    restart: always
     ports:
       - 8000:8000
     depends_on:
@@ -17,7 +18,7 @@ services:
       - .:/app
       - postgres_socket:/var/run/postgresql
     networks:
-      - backend
+      backend:
 
   chat-cleaner-db:
     container_name: chat-cleaner-db-container
@@ -38,7 +39,7 @@ services:
     ports:
       - "54321:5432"
     networks:
-      - backend
+      backend:
 
 volumes:
   postgres_data:
@@ -46,3 +47,4 @@ volumes:
 
 networks:
   backend:
+    external: true
