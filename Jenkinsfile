@@ -1,23 +1,77 @@
-node {
-    def app
+pipeline {
+    agent any
+    stages{
+      stage('Clone repository') {
+          steps
+            {
+                git branch: 'portainer-build', url: 'https://github.com/davidjnevin/hexagonal-chat-cleaner'
+                sh 'pwd'
+                sh 'ls -l'
+            }
+        }
+        stage('Start with a fresh docker environment'){
+          steps {
+                        sh 'whoami'
+                        sh 'echo "A fresh start"'
+                        sh 'make down && make clean-volumes'
+                        sh 'docker system prune -f'
+                        sh 'docker network prune -f'
+                        sh 'docker container prune -f'
+                        sh 'docker network create backend'
+                }
+            }
+      	stage('Build image') {
+        	     steps {
+                	    sh 'id -u'
+                	    sh 'docker network ls'
+                		sh returnStdout: true, script:'make build'
+                		echo "Build successful"
+        	}
+        	}
+        	stage('Make migrations') {
+        	    steps {
+        		sh 'docker container ls'
+        		sh 'make migrate'
+        		sh 'make migrations'
+        		sh 'make migrate'
+        	    }
+            }
+            stage('Run image') {
+        		steps {
+        		    sh 'id -u'
+        		sh returnStdout: true, script:'echo $DOCKER_COMPOSE_FILE'
+        		sh returnStdout: true, script:'docker compose -f $DOCKER_COMPOSE_FILE up -d'
+        		echo "run successful"
+        		}
+        	}
 
-    stage('Clone repository') {
-        /* Let's make sure we have the repository cloned to our workspace */
-
-        git branch: 'portainer-build', url: 'https://github.com/davidjnevin/hexagonal-chat-cleaner'
+            stage('Test image'){
+        		steps {
+        		    sh 'docker compose logs'
+        		sh 'make test'
+        		}
+            }
+            stage('clean up docker residuals'){
+                steps {
+                    sh 'docker system prune --volumes'
+                }
+            }
+        }
+    post {
+        always {
+            echo 'One way or another, I have finished'
+             }
+        success {
+            echo 'I succeeded!'
+        }
+        unstable {
+            echo 'I am unstable :/'
+        }
+        failure {
+            echo 'I failed :('
+        }
+        changed {
+            echo 'Things were different before...'
+        }
     }
-
-    stage('List files') {
-        /* This builds the actual image; synonymous to
-         * docker build on the command line */
-
-        sh 'ls -lta'
-    }
-
-	stage('Build image') {
-		withCredentials([file(credentialsId: 'env-varibales-jenkins-testing', variable: 'DOCKER_COMPOSE_FILE')]) {
-		sh 'make build'
-	}
-	}
-
 }
