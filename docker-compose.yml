@@ -6,7 +6,8 @@ services:
     build:
       dockerfile: dockerfiles/Dockerfile
       context: .
-    command: server
+    image: chat-cleaner-app
+    commmand: server
     ports:
       - 8000:8000
     depends_on:
