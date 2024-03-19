@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Define the directory path relative to the script
-target_dir="/src/chatcleaner/adapters/db/migrations/versions"
+target_dir="./src/chatcleaner/adapters/db/migrations/versions"
 
 # Check if the directory exists
 if [ ! -d "$target_dir" ]; then
