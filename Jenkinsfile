@@ -14,7 +14,7 @@ pipeline {
       steps {
         timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
           sh 'echo "A fresh start"'
-		  sh 'docker ps -aq | xargs docker stop'
+		  sh 'docker ps -aq | xargs -r docker stop'
           sh 'docker network prune -f'
 		  sh 'docker container prune -f'
           sh 'docker network create backend'
