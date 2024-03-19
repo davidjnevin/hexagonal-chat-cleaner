@@ -6,20 +6,17 @@ pipeline {
       steps {
         timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
           git branch: 'portainer-build', url: 'https://github.com/davidjnevin/hexagonal-chat-cleaner'
-          sh 'pwd'
-          sh 'ls -l'
+		  echo "clone repository successful"
         }
       }
     }
     stage('Start with a fresh docker environment') {
       steps {
         timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
-          sh 'whoami'
           sh 'echo "A fresh start"'
-          sh 'make down && make clean-volumes'
-          sh 'docker system prune -f'
+		  sh 'docker ps -aq | xargs docker stop'
           sh 'docker network prune -f'
-          sh 'docker container prune -f'
+		  sh 'docker container prune -f'
           sh 'docker network create backend'
         }
       }
@@ -27,9 +24,7 @@ pipeline {
     stage('Build image') {
       steps {
         timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
-          sh 'id -u'
-          sh 'docker network ls'
-          sh returnStdout: true, script: 'make build'
+          sh 'make build'
           echo "Build successful"
         }
       }
@@ -41,6 +36,7 @@ pipeline {
           sh 'make migrate'
           sh 'make migrations'
           sh 'make migrate'
+		  echo "migrations successful"
         }
       }
     }
