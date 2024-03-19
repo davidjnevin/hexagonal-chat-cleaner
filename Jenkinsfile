@@ -52,8 +52,9 @@ pipeline {
 	  steps {
 	    timeout(time: 2, unit: 'MINUTES') { // Set 2-minute timeout
 	      sh 'docker container ls'
+		  sh 'echo "first migration"'
+		  sh 'make migrate'
 	      sh 'make migrations'
-	      sh 'make migrate'
 		  echo "migrations successful"
 	    }
 	  }
