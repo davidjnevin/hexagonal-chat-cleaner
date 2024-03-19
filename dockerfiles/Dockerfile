@@ -21,11 +21,7 @@ WORKDIR /app
 USER app_user:app_user
 
 COPY --chown=app_user:app_user . .
-RUN ls -la /app
-USER root:root
 RUN chmod +x /app/entrypoint.sh
-USER app_user:app_user
 
-RUN ls -la /app
 ENTRYPOINT [ "/app/entrypoint.sh" ]
 CMD ["server"]
