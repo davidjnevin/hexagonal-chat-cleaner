@@ -2,10 +2,10 @@
 
 # Conditional sourcing of .env file
 if [[ -f ".env" ]]; then
-  echo ".env file found, sourcing..."
+  echo "env variables file found, sourcing..."
   source .env
 else
-  echo ".env file not found, continuing without it."
+  echo "env variables file not found, continuing without it."
 fi
 
 set -e
