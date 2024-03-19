@@ -34,6 +34,7 @@ pipeline {
         timeout(time: 2, unit: 'MINUTES') { // Set 2-minute timeout
 		  sh 'echo "Checking environment variables"'
 		  sh 'printenv | grep DB_NAME'
+		  sh 'cat .env'
           sh 'docker container ls'
           sh 'make migrate'
           sh 'make migrations'
@@ -70,21 +71,21 @@ pipeline {
     always {
       echo 'One way or another, I have finished'
           sh 'make down && make clean-volumes'
-          sh 'docker system prune -a -f'
+          // sh 'docker system prune -a -f'
 		  sh 'docker container prune -f'
           sh 'docker network prune -f'
     }
     success {
-      echo 'I succeeded!'
+      echo 'Pipeline succeeded!'
     }
     unstable {
-      echo 'I am unstable :/'
+      echo 'Pipeline is unstable :/'
     }
     failure {
-      echo 'I failed :('
+      echo 'Pipeline failed :('
     }
     changed {
-      echo 'Things were different before...'
+      echo 'Pipeline state changed'
     }
   }
 }
