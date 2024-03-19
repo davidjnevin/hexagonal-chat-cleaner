@@ -17,6 +17,7 @@ pipeline {
           sh 'echo "A fresh start"'
 		  sh 'echo "Checking environment variables"'
 		  sh './startup.sh'
+		  sh 'tree . -L 2 -p'
 		  sh 'docker ps -aq | xargs -r docker stop'
           sh 'docker network prune -f'
 		  sh 'docker container prune -f'
