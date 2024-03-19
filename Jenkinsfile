@@ -32,6 +32,8 @@ pipeline {
     stage('Make migrations') {
       steps {
         timeout(time: 2, unit: 'MINUTES') { // Set 2-minute timeout
+		  sh 'echo "Checking environment variables"'
+		  sh 'printenv | grep DB_NAME'
           sh 'docker container ls'
           sh 'make migrate'
           sh 'make migrations'
@@ -43,8 +45,6 @@ pipeline {
     stage('Run image') {
       steps {
         timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
-		  sh 'echo "Checking environment variables"'
-		  sh 'printenv | grep DB_NAME'
           sh returnStdout: true, script: 'docker compose -f $DOCKER_COMPOSE_FILE up -d'
           echo "run successful"
         }
