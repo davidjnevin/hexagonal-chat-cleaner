@@ -4,7 +4,7 @@ pipeline {
   stages {
     stage('Clone repository') {
       steps {
-        timeout(time: 2, unit: 'MINUTES') { // Set 2-minute timeout
+        timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
           git branch: 'portainer-build', url: 'https://github.com/davidjnevin/hexagonal-chat-cleaner'
           sh 'pwd'
           sh 'ls -l'
@@ -13,7 +13,7 @@ pipeline {
     }
     stage('Start with a fresh docker environment') {
       steps {
-        timeout(time: 2, unit: 'MINUTES') { // Set 2-minute timeout
+        timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
           sh 'whoami'
           sh 'echo "A fresh start"'
           sh 'make down && make clean-volumes'
@@ -26,7 +26,7 @@ pipeline {
     }
     stage('Build image') {
       steps {
-        timeout(time: 2, unit: 'MINUTES') { // Set 2-minute timeout
+        timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
           sh 'id -u'
           sh 'docker network ls'
           sh returnStdout: true, script: 'make build'
@@ -36,7 +36,7 @@ pipeline {
     }
     stage('Make migrations') {
       steps {
-        timeout(time: 2, unit: 'MINUTES') { // Set 2-minute timeout
+        timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
           sh 'docker container ls'
           sh 'make migrate'
           sh 'make migrations'
@@ -46,7 +46,7 @@ pipeline {
     }
     stage('Run image') {
       steps {
-        timeout(time: 2, unit: 'MINUTES') { // Set 2-minute timeout
+        timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
           sh 'id -u'
           sh returnStdout: true, script: 'echo $DOCKER_COMPOSE_FILE'
           sh returnStdout: true, script: 'docker compose -f $DOCKER_COMPOSE_FILE up -d'
@@ -56,14 +56,14 @@ pipeline {
     }
     stage('Test image') {
       steps {
-        timeout(time: 2, unit: 'MINUTES') { // Set 2-minute timeout
+        timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
           sh 'make test'
         }
       }
     }
     stage('clean up docker residuals') {
       steps {
-        timeout(time: 2, unit: 'MINUTES') { // Set 2-minute timeout
+        timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
           sh 'docker system prune --volumes'
         }
       }
