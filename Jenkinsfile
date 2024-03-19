@@ -74,10 +74,9 @@ pipeline {
     always {
       echo 'One way or another, I have finished'
           sh 'make down && make clean-volumes'
-          sh 'docker system prune -f'
+          sh 'docker system prune -a -f'
+		  sh 'docker container prune -f'
           sh 'docker network prune -f'
-          sh 'docker container prune -f'
-          sh 'docker network create backend'
     }
     success {
       echo 'I succeeded!'
