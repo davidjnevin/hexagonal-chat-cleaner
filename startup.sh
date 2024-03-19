@@ -8,6 +8,7 @@ if [ ! -d "$target_dir" ]; then
   # Create the directory if it doesn't exist
   echo "Creating directory: $target_dir"
   mkdir -p "$target_dir"
+  whoami
   chmod 755 "$target_dir"
 fi
 
