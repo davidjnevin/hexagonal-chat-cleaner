@@ -9,7 +9,7 @@ COPY requirements-dev.txt /tmp/requirements-dev.txt
 
 RUN set -ex ;\
 	apt-get update -y ; \
-	apt-get install -y --no-install-recommends gettext ;\
+	apt-get install -y --no-install-recommends gettext tree ;\
 	pip install --no-cache-dir --upgrade pip ;\
 	pip install --no-cache-dir --upgrade -r /tmp/requirements-dev.txt ;\
 	useradd -U app_user ;\
