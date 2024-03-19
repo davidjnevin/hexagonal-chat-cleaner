@@ -7,6 +7,7 @@ pipeline {
         timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
           git branch: 'portainer-build', url: 'https://github.com/davidjnevin/hexagonal-chat-cleaner'
 		  echo "clone repository successful"
+		  sh 'ls -la'
         }
       }
     }
@@ -14,6 +15,10 @@ pipeline {
       steps {
         timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
           sh 'echo "A fresh start"'
+		  sh 'echo "Checking environment variables"'
+		  sh 'printenv | grep DB_NAME'
+		  sh './startup.sh'
+		  sh 'cat .env'
 		  sh 'docker ps -aq | xargs -r docker stop'
           sh 'docker network prune -f'
 		  sh 'docker container prune -f'
@@ -32,9 +37,6 @@ pipeline {
     stage('Make migrations') {
       steps {
         timeout(time: 2, unit: 'MINUTES') { // Set 2-minute timeout
-		  sh 'echo "Checking environment variables"'
-		  sh 'printenv | grep DB_NAME'
-		  sh 'cat .env'
           sh 'docker container ls'
           sh 'make migrate'
           sh 'make migrations'
