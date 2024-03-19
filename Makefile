@@ -1,5 +1,5 @@
-# include .env
-# export $(shell sed 's/=.*//' .env)
+include .env
+export $(shell sed 's/=.*//' .env)
 
 DOCKER_COMPOSE=docker compose
 DOCKER_ENVIRONMENT=$$DOCKER_COMPOSE_FILE
