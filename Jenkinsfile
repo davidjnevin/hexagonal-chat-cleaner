@@ -45,6 +45,7 @@ pipeline {
     stage('Test image') {
       steps {
         timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
+		  sh 'whoami'
           sh 'make test'
         }
       }
