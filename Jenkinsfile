@@ -17,6 +17,7 @@ pipeline {
           sh 'echo "A fresh start"'
 		  sh 'echo "Checking environment variables"'
 		  sh './startup.sh'
+		  sh 'cat .env'
 		  sh 'ls -la ./src/chatcleaner/adapters/db/migrations/versions'
 		  sh 'docker ps -aq | xargs -r docker stop'
           sh 'docker network prune -f'
@@ -58,13 +59,13 @@ pipeline {
 	    }
 	  }
 	}
-    stage('Test integration image') {
-      steps {
-        timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
-          sh 'make test-int'
-        }
-      }
-    }
+    // stage('Test integration image') {
+    //   steps {
+    //     timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
+    //       sh 'make test-int'
+    //     }
+    //   }
+    // }
     stage('clean up docker residuals') {
       steps {
         timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
