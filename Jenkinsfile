@@ -61,13 +61,21 @@ pipeline {
 	    }
 	  }
 	}
-    stage('Test integration image') {
+    stage('Test specific groups - repos,  uows') {
       steps {
         timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
-          sh 'make test-int'
+          sh 'make test-repos'
+		  sh 'make test-uows'
         }
       }
     }
+    // stage('Test integration image') {
+    //   steps {
+    //     timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
+    //       sh 'make test-int'
+    //     }
+    //   }
+    // }
     stage('clean up docker residuals') {
       steps {
         timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
