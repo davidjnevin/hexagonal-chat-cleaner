@@ -56,17 +56,18 @@ pipeline {
 	      sh 'docker container ls'
 		  sh 'echo "first migration"'
 		  sh 'make migrate'
+		  sh 'make migratations'
 		  echo "migrations successful"
 	    }
 	  }
 	}
-    // stage('Test integration image') {
-    //   steps {
-    //     timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
-    //       sh 'make test-int'
-    //     }
-    //   }
-    // }
+    stage('Test integration image') {
+      steps {
+        timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
+          sh 'make test-int'
+        }
+      }
+    }
     stage('clean up docker residuals') {
       steps {
         timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
