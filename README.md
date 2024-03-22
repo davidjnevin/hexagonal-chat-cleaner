@@ -8,4 +8,6 @@ This new version will be a web app and be built using hexagonal architecture and
 
 The project is on going at the moment, and I'll share a link as soon as it's live.
 
+Making progress ...
+
 This project applies [Shako Rzayev's](https://github.com/ShahriyarR) hexagonal architecture repositories combined with [Python Alicante's](https://github.com/pythonalicante) meetup selector repository for docker setup.
