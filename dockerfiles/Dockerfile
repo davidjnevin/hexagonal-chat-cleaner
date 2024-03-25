@@ -12,7 +12,7 @@ RUN set -ex ;\
 	apt-get install -y --no-install-recommends gettext ;\
 	pip install --no-cache-dir --upgrade pip ;\
 	pip install --no-cache-dir --upgrade -r /tmp/requirements-dev.txt ;\
-	useradd -U app_user ;\
+	useradd -U app_user -u 1001 ;\
 	install -d -m 0755 -o app_user -g app_user /app/static ;\
 	rm -rf \
 		/var/lib/apt/lists/*
@@ -21,6 +21,7 @@ WORKDIR /app
 USER app_user:app_user
 
 COPY --chown=app_user:app_user . .
+RUN chmod +x /app/entrypoint.sh
 
 ENTRYPOINT [ "/app/entrypoint.sh" ]
 CMD ["server"]

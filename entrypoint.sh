@@ -1,7 +1,13 @@
 #!/bin/bash
 
-#load environment variables from .env file
-[ -f .env ] || export $(grep -v '^#' .env | xargs)
+# Conditional sourcing of .env file
+if [[ -f ".env" ]]; then
+  echo "env variables file found, sourcing..."
+  source .env
+else
+  echo "env variables file not found, continuing without it."
+fi
+
 set -e
 set -o nounset
 
