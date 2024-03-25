@@ -81,9 +81,12 @@ pipeline {
         sh 'echo $GITHUB_TOKEN_PSW | docker login ghcr.io -u $GITHUB_TOKEN_USR --password-stdin'
       }
     }
-    stage('tag image') {
+    stage('extract and tag image') {
       steps {
-		DOCKER_IMAGE_ID=$(docker images -f "reference=chat-cleaner-app" --format "{{.ID}}")
+        script {
+          def imageId = sh(script: 'docker images -f "reference=chat-cleaner-app" --format="{{.ID}}"').trim()
+          env.DOCKER_IMAGE_ID = imageId // Set environment variable
+          }
         sh 'docker tag $DOCKER_IMAGE_ID $IMAGE_NAME:$IMAGE_VERSION ghcr.io/$IMAGE_NAME:$IMAGE_VERSION'
       }
     }
