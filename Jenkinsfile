@@ -8,6 +8,7 @@ pipeline {
   environment {
     GITHUB_TOKEN=credentials('github_package_token')
     IMAGE_NAME='davidjnevin/hexagonal-chat-cleaner-backend'
+	IMAGE_VERSION="0.0.${env.BUILD_ID}"
   }
 
   stages {
@@ -51,10 +52,9 @@ pipeline {
         }
       }
     }
-    stage('Test image') {
+    stage('Test image - except integration tests') {
       steps {
-        timeout(time: 30, unit: 'SECONDS') { // Set 30-second timeout
-		  sh 'whoami'
+        timeout(time: 60, unit: 'SECONDS') { // Set 60-second timeout
           sh 'make test'
         }
       }
@@ -71,14 +71,6 @@ pipeline {
 	    }
 	  }
 	}
-    stage('Test specific groups - repos,  uows') {
-      steps {
-        timeout(time: 30, unit: 'SECONDS') { // Set 30-second timeout
-          sh 'make test-repos'
-		  sh 'make test-uows'
-        }
-      }
-    }
     stage('Test integration image') {
       steps {
         timeout(time: 30, unit: 'SECONDS') { // Set 30-second timeout
@@ -86,12 +78,24 @@ pipeline {
         }
       }
     }
-    stage('publish image to ghrc') {
+	stage('build image') {
       steps {
-        timeout(time: 30, unit: 'SECONDS') { // Set 30-second timeout
-          echo "publishing image to ghrc"
-		  echo "IMAGE_NAME: $IMAGE_NAME"
-        }
+        sh 'docker build -t $IMAGE_NAME:$IMAGE_VERSION .'
+      }
+    }
+    stage('login to GHCR') {
+      steps {
+        sh 'echo $GITHUB_TOKEN_PSW | docker login ghcr.io -u $GITHUB_TOKEN_USR --password-stdin'
+      }
+    }
+    stage('tag image') {
+      steps {
+        sh 'docker tag $IMAGE_NAME:$IMAGE_VERSION ghcr.io/$IMAGE_NAME:$IMAGE_VERSION'
+      }
+    }
+    stage('push image') {
+      steps {
+        sh 'docker push ghcr.io/$IMAGE_NAME:$IMAGE_VERSION'
       }
     }
     stage('clean up docker residuals') {
@@ -106,8 +110,8 @@ pipeline {
   post {
     always {
       echo 'One way or another, I have finished'
-          sh 'make down && make clean-volumes'
-          // sh 'docker system prune -a -f'
+          sh 'docker logout ghcr.io'
+		  sh 'make down && make clean-volumes'
 		  sh 'docker container prune -f'
           sh 'docker network prune -f'
     }
