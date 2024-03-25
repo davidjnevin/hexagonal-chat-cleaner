@@ -76,11 +76,6 @@ pipeline {
         }
       }
     }
-	stage('build image') {
-      steps {
-        sh 'docker build -t $IMAGE_NAME:$IMAGE_VERSION .'
-      }
-    }
     stage('login to GHCR') {
       steps {
         sh 'echo $GITHUB_TOKEN_PSW | docker login ghcr.io -u $GITHUB_TOKEN_USR --password-stdin'
@@ -88,7 +83,8 @@ pipeline {
     }
     stage('tag image') {
       steps {
-        sh 'docker tag $IMAGE_NAME:$IMAGE_VERSION ghcr.io/$IMAGE_NAME:$IMAGE_VERSION'
+		DOCKER_IMAGE_ID=$(docker images -f "reference=chat-cleaner-app" --format "{{.ID}}")
+        sh 'docker tag $DOCKER_IMAGE_ID $IMAGE_NAME:$IMAGE_VERSION ghcr.io/$IMAGE_NAME:$IMAGE_VERSION'
       }
     }
     stage('push image') {
