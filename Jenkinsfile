@@ -5,6 +5,11 @@ pipeline {
     buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5')
   }
 
+  environment {
+    GITHUB_TOKEN=credentials('github_package_token')
+    IMAGE_NAME='davidjnevin/hexagonal-chat-cleaner-backend'
+  }
+
   stages {
     stage('Clone repository') {
       steps {
@@ -78,6 +83,14 @@ pipeline {
       steps {
         timeout(time: 30, unit: 'SECONDS') { // Set 30-second timeout
           sh 'make test-int'
+        }
+      }
+    }
+    stage('publish image to ghrc') {
+      steps {
+        timeout(time: 30, unit: 'SECONDS') { // Set 30-second timeout
+          echo "publishing image to ghrc"
+		  echo "IMAGE_NAME: $IMAGE_NAME"
         }
       }
     }
