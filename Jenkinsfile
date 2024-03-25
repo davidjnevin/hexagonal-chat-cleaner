@@ -27,8 +27,6 @@ pipeline {
           sh 'echo "A fresh start"'
 		  sh 'echo "Checking environment variables"'
 		  sh './startup.sh'
-		  sh 'cat .env'
-		  sh 'ls -la ./src/chatcleaner/adapters/db/migrations/versions'
 		  sh 'docker ps -aq | xargs -r docker stop'
           sh 'docker network prune -f'
 		  sh 'docker container prune -f'
