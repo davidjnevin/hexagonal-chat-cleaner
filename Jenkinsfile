@@ -8,6 +8,7 @@ pipeline {
   environment {
     GITHUB_TOKEN=credentials('github_package_token')
     IMAGE_NAME='davidjnevin/hexagonal-chat-cleaner-backend'
+	IMAGE_BASE_VERSION="0.0"
 	IMAGE_VERSION="0.0.${env.BUILD_ID}"
   }
 
@@ -86,10 +87,11 @@ pipeline {
         script {
           def imageId = sh(script: 'docker images -f "reference=chat-cleaner-app" --format="{{.ID}}"')
           env.DOCKER_IMAGE_ID = imageId // Set environment variable
-          }
-        sh 'docker tag $DOCKER_IMAGE_ID $IMAGE_NAME:$IMAGE_VERSION ghcr.io/$IMAGE_NAME:$IMAGE_VERSION'
+	   	ececho "Extracted Image ID: ${env.DOCKER_IMAGE_ID}"
+          sh 'docker tag $DOCKER_IMAGE_ID $IMAGE_NAME:$IMAGE_VERSION ghcr.io/$IMAGE_NAME:$IMAGE_VERSION'
       }
     }
+	}
     stage('push image') {
       steps {
         sh 'docker push ghcr.io/$IMAGE_NAME:$IMAGE_VERSION'
