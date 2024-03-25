@@ -8,8 +8,8 @@ pipeline {
   stages {
     stage('Clone repository') {
       steps {
-        timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
-          git branch: 'portainer-build', url: 'https://github.com/davidjnevin/hexagonal-chat-cleaner'
+        timeout(time: 30, unit: 'SECONDS') { // Set 30-second timeout
+          git branch: 'dev', url: 'https://github.com/davidjnevin/hexagonal-chat-cleaner'
 		  echo "clone repository successful"
 		  sh 'ls -la'
         }
@@ -17,7 +17,7 @@ pipeline {
     }
     stage('Start with a fresh docker environment') {
       steps {
-        timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
+        timeout(time: 30, unit: 'SECONDS') { // Set 30-second timeout
           sh 'echo "A fresh start"'
 		  sh 'echo "Checking environment variables"'
 		  sh './startup.sh'
@@ -48,7 +48,7 @@ pipeline {
     }
     stage('Test image') {
       steps {
-        timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
+        timeout(time: 30, unit: 'SECONDS') { // Set 30-second timeout
 		  sh 'whoami'
           sh 'make test'
         }
@@ -56,7 +56,7 @@ pipeline {
     }
 	stage('Make migrations') {
 	  steps {
-	    timeout(time: 2, unit: 'MINUTES') { // Set 2-minute timeout
+	    timeout(time: 2, unit: 'MINUTES') { // Set 30-second timeout
 	      sh 'docker container ls'
 		  sh 'echo "first migration"'
 		  sh 'make migrate'
@@ -68,7 +68,7 @@ pipeline {
 	}
     stage('Test specific groups - repos,  uows') {
       steps {
-        timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
+        timeout(time: 30, unit: 'SECONDS') { // Set 30-second timeout
           sh 'make test-repos'
 		  sh 'make test-uows'
         }
@@ -76,14 +76,14 @@ pipeline {
     }
     stage('Test integration image') {
       steps {
-        timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
+        timeout(time: 30, unit: 'SECONDS') { // Set 30-second timeout
           sh 'make test-int'
         }
       }
     }
     stage('clean up docker residuals') {
       steps {
-        timeout(time: 30, unit: 'SECONDS') { // Set 2-minute timeout
+        timeout(time: 30, unit: 'SECONDS') { // Set 30-second timeout
           sh 'docker system prune --volumes -f'
         }
       }
