@@ -1,3 +1,4 @@
+def imageId = ""
 pipeline {
   agent any
 
@@ -85,10 +86,10 @@ pipeline {
     stage('extract and tag image') {
       steps {
         script {
-          def imageId = sh(script: 'docker images -f "reference=chat-cleaner-app" --format="{{.ID}}"').trim()
+          imageId = sh(script: 'docker images -f "reference=chat-cleaner-app" --format="{{.ID}}"').trim()
           env.DOCKER_IMAGE_ID = imageId // Set environment variable
 	   	ececho "Extracted Image ID: ${env.DOCKER_IMAGE_ID}"
-          sh 'docker tag $DOCKER_IMAGE_ID $IMAGE_NAME:$IMAGE_VERSION ghcr.io/$IMAGE_NAME:$IMAGE_VERSION'
+          sh "docker tag ${env.DOCKER_IMAGE_ID} ${IMAGE_NAME}:${IMAGE_VERSION} ghcr.io/${IMAGE_NAME}:${IMAGE_VERSION}"
       }
     }
 	}
