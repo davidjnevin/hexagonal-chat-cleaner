@@ -90,7 +90,7 @@ pipeline {
 					script: 'docker images -f "reference=chat-cleaner-app" --format="{{.ID}}"', returnStdout: true
 					).trim()
 		  echo "Extracted Image ID: ${imageId}"
-          sh "docker tag ${imageId} ${IMAGE_NAME}:${IMAGE_VERSION} ghcr.io/${IMAGE_NAME}:${IMAGE_VERSION}"
+          sh "docker tag ${imageId} ghcr.io/${IMAGE_NAME}:${IMAGE_VERSION}"
       }
     }
 	}
