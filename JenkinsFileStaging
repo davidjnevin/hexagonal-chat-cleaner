@@ -86,11 +86,10 @@ pipeline {
     stage('extract and tag image') {
       steps {
         script {
-          imageId = sh(
-					script: 'docker images -f "reference=chat-cleaner-app" --format="{{.ID}}"', returnStdout: true
-					).trim()
-		  echo "Extracted Image ID: ${imageId}"
-          sh "docker tag ${imageId} ${IMAGE_NAME}:${IMAGE_VERSION} ghcr.io/${IMAGE_NAME}:${IMAGE_VERSION}"
+          imageId = sh(script: 'docker images -f "reference=chat-cleaner-app" --format="{{.ID}}"').trim()
+          env.DOCKER_IMAGE_ID = imageId // Set environment variable
+	   	ececho "Extracted Image ID: ${env.DOCKER_IMAGE_ID}"
+          sh "docker tag ${env.DOCKER_IMAGE_ID} ${IMAGE_NAME}:${IMAGE_VERSION} ghcr.io/${IMAGE_NAME}:${IMAGE_VERSION}"
       }
     }
 	}
@@ -130,4 +129,3 @@ pipeline {
     }
   }
 }
-
