@@ -91,12 +91,14 @@ pipeline {
 					).trim()
 		  echo "Extracted Image ID: ${imageId}"
           sh "docker tag ${imageId} ghcr.io/${IMAGE_NAME}:${IMAGE_VERSION}"
+          sh "docker tag ${imageId} ghcr.io/${IMAGE_NAME}:latest"
       }
     }
 	}
     stage('push image') {
       steps {
         sh 'docker push ghcr.io/$IMAGE_NAME:$IMAGE_VERSION'
+        sh 'docker push ghcr.io/$IMAGE_NAME:latest'
       }
     }
     stage('clean up docker residuals') {
