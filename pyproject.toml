@@ -107,5 +107,8 @@ exclude_also = [
 
 ignore_errors = true
 
+[tool.pytype]
+inputs = ["src/chatcleaner"]
+
 [tool.coverage.html]
 directory = "htmlcov"

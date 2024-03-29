@@ -2,5 +2,5 @@
 max-line-length = 84
 select = C,E,F,W,B,B9
 ignore = E203, E501, W503, C812, E731
-exclude = __init__.py,src/calculator/adapters/db
+exclude = __init__.py, src/chatcleaner/adapters/db/migrations/versions/
 extend-immutable-calls = Depends, fastapi.Depends, fastapi.params.Depends
