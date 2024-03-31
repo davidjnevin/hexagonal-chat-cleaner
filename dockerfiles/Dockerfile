@@ -19,7 +19,7 @@ RUN set -ex ;\
 RUN useradd -U app_user
 
 # Create a directory for static files
-RUN install -d -m 0755 -o app_user -g app_user /app/static ;\
+RUN install -d -m 0755 -o app_user -g app_user /app/static
 
 WORKDIR /app
 USER app_user:app_user
