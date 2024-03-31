@@ -42,6 +42,7 @@ wait_other_containers() {
 
 
 cd /app
+alembic -c src/chatcleaner/adapters/db/alembic.ini upgrade head
 
 
 case $1 in
