@@ -49,8 +49,11 @@ case $1 in
 		bash;;
 	"server")
 		wait_other_containers ;\
+
+		echo "attempting migrations in debug mode" && \
+		alembic -c src/chatcleaner/adapters/db/alembic.ini upgrade head && \
+
 	 	if [ "$FASTAPI_DEBUG" = "true" ]; then
-		echo "attempting migrations in debug mode"
         uvicorn \
             src.chatcleaner.adapters.entrypoints.api.app:app \
             --reload \
