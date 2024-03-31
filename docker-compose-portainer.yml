@@ -10,7 +10,7 @@ services:
     depends_on:
     - chat-cleaner-db
     volumes:
-      - .:/app
+      # - .:/app
       - postgres_socket:/var/run/postgresql
     networks:
       -  nginx_default
