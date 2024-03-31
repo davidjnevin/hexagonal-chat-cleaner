@@ -42,7 +42,6 @@ wait_other_containers() {
 
 
 cd /app
-alembic -c src/chatcleaner/adapters/db/alembic.ini upgrade head
 
 
 case $1 in
@@ -51,6 +50,8 @@ case $1 in
 	"server")
 		wait_other_containers ;\
 	 	if [ "$FASTAPI_DEBUG" = "true" ]; then
+		echo "attempting migrations in debug mode"
+		alembic -c src/chatcleaner/adapters/db/alembic.ini upgrade head
         uvicorn \
             src.chatcleaner.adapters.entrypoints.api.app:app \
             --reload \
@@ -58,6 +59,7 @@ case $1 in
 			--proxy-headers \
 			--port 8088
 		else
+    		echo "attempting migrations in production mode"
 			uvicorn \
             	src.chatcleaner.adapters.entrypoints.api.app:app \
 				--workers 2 \
