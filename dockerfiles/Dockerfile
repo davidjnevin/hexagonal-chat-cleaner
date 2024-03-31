@@ -16,7 +16,8 @@ RUN set -ex ;\
 	pip install --no-cache-dir --upgrade -r /tmp/requirements-dev.txt
 
 # Create a non-root user
-RUN useradd -U app_user
+RUN useradd -U app_user -u ${UID}
+RUN echo "app_user id is ${UID}"
 
 # Create a directory for static files
 RUN install -d -m 0755 -o app_user -g app_user /app/static
