@@ -2,18 +2,19 @@ services:
   chat-cleaner-app:
     container_name: chat-cleaner-app-container
     build:
-      dockerfile: dockerfiles/Dockerfile
+      dockerfile: dockerfiles/Dockerfile_dev
       context: .
+    env_file:
+      - ./.env
     image: chat-cleaner-app
-    command: server
+    restart: always
     ports:
-      - 8000:8000
+      - 8088:8088
     depends_on:
     - chat-cleaner-db
     volumes:
       - .:/app
       - postgres_socket:/var/run/postgresql
-    tty: true
     networks:
       backend:
 
