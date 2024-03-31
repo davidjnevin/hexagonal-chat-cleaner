@@ -1,8 +1,10 @@
 services:
   chat-cleaner-app:
     container_name: chat-cleaner-app-container
-    image: ghcr.io/davidjnevin/hexagonal-chat-cleaner:latest
+    image: ghcr.io/davidjnevin/hexagonal-chat-cleaner-backend:latest
     command: server
+    env_file:
+    - ./stack.env
     ports:
       - 8088:8088
     depends_on:
@@ -10,8 +12,8 @@ services:
     volumes:
       - .:/app
       - postgres_socket:/var/run/postgresql
-  networks:
-    backend:
+    networks:
+      -  nginx_default
 
   chat-cleaner-db:
     container_name: chat-cleaner-db-container
@@ -32,10 +34,10 @@ services:
     ports:
       - "54321:5432"
     networks:
-      backend:
+      - nginx_default
 
 networks:
-  backend:
+  nginx_default:
     external: true
 
 volumes:
