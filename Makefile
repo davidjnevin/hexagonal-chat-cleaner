@@ -117,7 +117,7 @@ setup:
 
 # target: build - Build the docker images
 build:
-	${DOCKER_COMPOSE} -f ${DOCKER_ENVIRONMENT} build
+	${DOCKER_COMPOSE} -f ${DOCKER_ENVIRONMENT} build --build-arg UID=$(shell id -u) --build-arg GID=$(shell id -g)
 
 # target: run - Run the project
 run:
