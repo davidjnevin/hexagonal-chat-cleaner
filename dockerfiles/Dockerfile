@@ -1,5 +1,5 @@
 FROM python:3.11
-LABEL org.opencontainers.image.source https://github.com/davidjnevin/hexagonal-chat-cleaner
+LABEL org.opencontainers.image.source=https://github.com/davidjnevin/hexagonal-chat-cleaner
 LABEL org.opencontainers.image.description="A python/fastapi chat text cleaner"
 
 ENV PYTHONUNBUFFERED 1
