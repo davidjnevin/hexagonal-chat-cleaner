@@ -4,12 +4,14 @@ services:
     image: ghcr.io/davidjnevin/hexagonal-chat-cleaner:latest
     command: server
     ports:
-      - 8088:8000
+      - 8088:8088
     depends_on:
     - chat-cleaner-db
     volumes:
       - .:/app
       - postgres_socket:/var/run/postgresql
+  networks:
+    backend:
 
   chat-cleaner-db:
     container_name: chat-cleaner-db-container
@@ -29,6 +31,13 @@ services:
     restart: always
     ports:
       - "54321:5432"
+    networks:
+      backend:
+
+networks:
+  backend:
+    external: true
+
 volumes:
   postgres_data:
   postgres_socket:
