@@ -3,7 +3,7 @@ export $(shell sed 's/=.*//' .env)
 
 DOCKER_COMPOSE=docker compose
 DOCKER_ENVIRONMENT=$$DOCKER_COMPOSE_FILE
-PRE_RUN_API_COMMAND=${DOCKER_COMPOSE} -f ${DOCKER_ENVIRONMENT} run --rm chat-cleaner-app
+PRE_RUN_API_COMMAND=${DOCKER_COMPOSE} -f ${DOCKER_ENVIRONMENT} --verbose run --rm chat-cleaner-app
 PACKAGE_NAME=chatcleaner
 VENV_FOLDER=.venv
 LAUNCH_IN_VENV=source ${VENV_FOLDER}/bin/activate &&
