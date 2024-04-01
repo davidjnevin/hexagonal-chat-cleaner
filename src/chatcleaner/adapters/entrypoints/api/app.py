@@ -15,16 +15,19 @@ def include_router(app_):
 
 def configure_cors(app_):
     origins = [
-        "*",  # Allow all
+        "*",
+        "https://hexagonalchat.netlify.app/",
+        "localhost:5173",
+        "https://netlify--hexagonalchat.netlify.app",  # Allow only front end
     ]
     # Allow these methods to be used
-    methods = ["GET", "POST", "PUT", "DELETE"]
+    methods = ["OPTIONS", "GET", "POST", "PUT", "DELETE"]
     headers = ["*"]
 
     app_.add_middleware(
         CORSMiddleware,
         allow_origins=origins,
-        allow_credentials=True,
+        allow_credentials=False,
         allow_methods=methods,
         allow_headers=headers,
     )
