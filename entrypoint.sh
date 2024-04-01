@@ -59,7 +59,6 @@ case $1 in
             --reload \
 			--host 0.0.0.0 \
 			--proxy-headers \
-			--forwarded-allow-ips '*' \
 			--port 8088
 		else
 			uvicorn \
@@ -67,7 +66,6 @@ case $1 in
 				--workers 2 \
 				--host 0.0.0.0 \
 				--proxy-headers \
-			    --forwarded-allow-ips '*' \
 				--port 8088
 		fi
 	;;
